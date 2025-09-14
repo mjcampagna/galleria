@@ -46,6 +46,7 @@
     "build": "grunt",
     "build:watch": "grunt watch",
     "dev": "live-server --port=8080 --open=/demo.html",
+    "dist": "live-server --port=8080 --open=/dist.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
