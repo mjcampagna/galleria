@@ -27,15 +27,6 @@ npm
 https://www.npmjs.com/package/galleria
 
 
-bower
------
-::
-
-	$ bower install galleria
-
-https://bower.io/search/?q=galleria
-
-
 CDN
 ---
 ::

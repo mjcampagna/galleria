@@ -1,8 +1,8 @@
 {
   "name": "galleria",
   "version": "1.6.1",
-  "title": "Responsive JavaScript Image Gallery",
   "description": "A free JavaScript image gallery framework that simplifies the process of creating beautiful image galleries for the web and mobile devices.",
+  "homepage": "https://galleriajs.github.io/",
   "keywords": [
     "gallery",
     "thumbnails",
@@ -10,7 +10,10 @@
     "image",
     "lightbox",
     "youtube",
-    "vimeo"
+    "vimeo",
+    "carousel",
+    "slideshow",
+    "responsive"
   ],
   "contributors": [
     {
@@ -29,34 +32,39 @@
     "url": "http://wib.io",
     "email": "hello@wib.io"
   },
-  "dependencies": {
-    "grunt-postcss": "^0.9.0",
-    "jquery": ">=1.9.0"
-  },
   "main": "./dist/galleria.js",
+  "files": [
+    "dist/",
+    "src/",
+    "LICENSE",
+    "README.rst"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/worseisbetter/galleria.git"
+    "url": "https://github.com/mjcampagna/galleria.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/worseisbetter/galleria/issues"
+    "url": "https://github.com/mjcampagna/galleria/issues"
   },
   "scripts": {
-    "build": "grunt",
-    "build:watch": "grunt watch",
+    "build": "rollup --config",
+    "build:prod": "NODE_ENV=production rollup --config",
     "dev": "live-server --port=8080 --open=/demo.html",
-    "dist": "live-server --port=8080 --open=/dist.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:watch": "rollup --config --watch",
+    "preview": "npm run build:prod && live-server --port=8080 --open=/dist.html"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^1.0.2",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-replace": "^1.0.1",
+    "@rollup/plugin-replace": "^5.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
     "live-server": "^1.2.2",
-    "postcss-assets": "^5.0.0"
+    "rollup": "^4.0.0",
+    "rollup-plugin-copy": "^3.5.0"
   }
 }
