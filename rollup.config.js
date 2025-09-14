@@ -15,6 +15,9 @@ const banner = `/**
  */
 `;
 
+// Theme names for building
+const themes = ['classic', 'azur', 'folio', 'fullscreen', 'miniml', 'twelve'];
+
 module.exports = [
   // Main Galleria build
   {
@@ -117,161 +120,22 @@ module.exports = [
     plugins: []
   },
 
-  // Themes
-  {
-    input: 'src/themes/classic/galleria.classic.js',
+  // Themes (simple script processing - they already have UMD wrapper)
+  ...themes.map(theme => ({
+    input: `src/themes/${theme}/galleria.${theme}.js`,
     output: [
       {
-        file: 'dist/themes/classic/galleria.classic.js',
-        format: 'umd',
-        name: 'GalleriaClassic',
-        banner: banner,
-        globals: {
-          'jquery': 'jQuery'
-        }
+        file: `dist/themes/${theme}/galleria.${theme}.js`,
+        format: 'es',
+        banner: banner
       },
       ...(isProduction ? [{
-        file: 'dist/themes/classic/galleria.classic.min.js',
-        format: 'umd',
-        name: 'GalleriaClassic',
+        file: `dist/themes/${theme}/galleria.${theme}.min.js`,
+        format: 'es',
         banner: banner,
-        plugins: [terser()],
-        globals: {
-          'jquery': 'jQuery'
-        }
+        plugins: [terser()]
       }] : [])
     ],
-    external: ['jquery'],
     plugins: []
-  },
-  {
-    input: 'src/themes/azur/galleria.azur.js',
-    output: [
-      {
-        file: 'dist/themes/azur/galleria.azur.js',
-        format: 'umd',
-        name: 'GalleriaAzur',
-        banner: banner,
-        globals: {
-          'jquery': 'jQuery'
-        }
-      },
-      ...(isProduction ? [{
-        file: 'dist/themes/azur/galleria.azur.min.js',
-        format: 'umd',
-        name: 'GalleriaAzur',
-        banner: banner,
-        plugins: [terser()],
-        globals: {
-          'jquery': 'jQuery'
-        }
-      }] : [])
-    ],
-    external: ['jquery'],
-    plugins: []
-  },
-  {
-    input: 'src/themes/folio/galleria.folio.js',
-    output: [
-      {
-        file: 'dist/themes/folio/galleria.folio.js',
-        format: 'umd',
-        name: 'GalleriaFolio',
-        banner: banner,
-        globals: {
-          'jquery': 'jQuery'
-        }
-      },
-      ...(isProduction ? [{
-        file: 'dist/themes/folio/galleria.folio.min.js',
-        format: 'umd',
-        name: 'GalleriaFolio',
-        banner: banner,
-        plugins: [terser()],
-        globals: {
-          'jquery': 'jQuery'
-        }
-      }] : [])
-    ],
-    external: ['jquery'],
-    plugins: []
-  },
-  {
-    input: 'src/themes/fullscreen/galleria.fullscreen.js',
-    output: [
-      {
-        file: 'dist/themes/fullscreen/galleria.fullscreen.js',
-        format: 'umd',
-        name: 'GalleriaFullscreen',
-        banner: banner,
-        globals: {
-          'jquery': 'jQuery'
-        }
-      },
-      ...(isProduction ? [{
-        file: 'dist/themes/fullscreen/galleria.fullscreen.min.js',
-        format: 'umd',
-        name: 'GalleriaFullscreen',
-        banner: banner,
-        plugins: [terser()],
-        globals: {
-          'jquery': 'jQuery'
-        }
-      }] : [])
-    ],
-    external: ['jquery'],
-    plugins: []
-  },
-  {
-    input: 'src/themes/miniml/galleria.miniml.js',
-    output: [
-      {
-        file: 'dist/themes/miniml/galleria.miniml.js',
-        format: 'umd',
-        name: 'GalleriaMiniml',
-        banner: banner,
-        globals: {
-          'jquery': 'jQuery'
-        }
-      },
-      ...(isProduction ? [{
-        file: 'dist/themes/miniml/galleria.miniml.min.js',
-        format: 'umd',
-        name: 'GalleriaMiniml',
-        banner: banner,
-        plugins: [terser()],
-        globals: {
-          'jquery': 'jQuery'
-        }
-      }] : [])
-    ],
-    external: ['jquery'],
-    plugins: []
-  },
-  {
-    input: 'src/themes/twelve/galleria.twelve.js',
-    output: [
-      {
-        file: 'dist/themes/twelve/galleria.twelve.js',
-        format: 'umd',
-        name: 'GalleriaTwelve',
-        banner: banner,
-        globals: {
-          'jquery': 'jQuery'
-        }
-      },
-      ...(isProduction ? [{
-        file: 'dist/themes/twelve/galleria.twelve.min.js',
-        format: 'umd',
-        name: 'GalleriaTwelve',
-        banner: banner,
-        plugins: [terser()],
-        globals: {
-          'jquery': 'jQuery'
-        }
-      }] : [])
-    ],
-    external: ['jquery'],
-    plugins: []
-  }
+  }))
 ];
