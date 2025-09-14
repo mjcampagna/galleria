@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Galleria Demo - Local Development</title>
+	<style>
+		body {
+			background-color: #f5f5f5;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 20px;
+		}
+
+		.container {
+			background: white;
+			border-radius: 8px;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			margin: 0 auto;
+			max-width: 1200px;
+			padding: 20px;
+		}
+
+		h1 {
+			color: #333;
+			margin-bottom: 30px;
+			text-align: center;
+		}
+
+		.galleria {
+			height: 500px;
+			margin-bottom: 30px;
+		}
+
+		.theme-selector {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.theme-selector select {
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			font-size: 14px;
+			padding: 8px 12px;
+		}
+
+		.demo-images {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Galleria Image Gallery Demo</h1>
+
+		<div class="theme-selector">
+			<label for="themeSelect">Choose Theme: </label>
+			<select id="themeSelect">
+				<option value="classic">Classic</option>
+				<option value="azur">Azur</option>
+				<option value="folio">Folio</option>
+				<option value="fullscreen">Fullscreen</option>
+				<option value="miniml">Miniml</option>
+				<option value="twelve">Twelve</option>
+			</select>
+		</div>
+
+		<div class="galleria">
+			<img src="https://picsum.photos/800/600?random=1" alt="Demo Image 1" data-title="Beautiful Landscape"
+				data-description="A stunning view of nature">
+			<img src="https://picsum.photos/800/600?random=2" alt="Demo Image 2" data-title="City Skyline"
+				data-description="Modern architecture at sunset">
+			<img src="https://picsum.photos/800/600?random=3" alt="Demo Image 3" data-title="Ocean Waves"
+				data-description="Peaceful waves on a sandy beach">
+			<img src="https://picsum.photos/800/600?random=4" alt="Demo Image 4" data-title="Mountain Peak"
+				data-description="Snow-capped mountain against blue sky">
+			<img src="https://picsum.photos/800/600?random=5" alt="Demo Image 5" data-title="Forest Path"
+				data-description="Winding trail through autumn trees">
+			<img src="https://picsum.photos/800/600?random=6" alt="Demo Image 6" data-title="Desert Sunset"
+				data-description="Golden hour in the desert landscape">
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Galleria Core -->
+	<script src="./src/galleria.js"></script>
+
+	<script>
+		// Initialize Galleria with default theme
+		function initGalleria(themeName = 'classic') {
+			console.log('Loading theme:', themeName);
+
+			// Clear any existing themes first
+			Galleria._themes = {};
+
+			// Load theme and wait for completion
+			Galleria.loadTheme(`./src/themes/${themeName}/galleria.${themeName}.js`);
+
+			// Use ready callback to ensure theme is loaded
+			Galleria.ready(function (options) {
+				console.log('Gallery initialized with theme:', themeName);
+			});
+
+			// Run gallery
+			Galleria.run('.galleria', {
+				theme: themeName,
+				autoplay: 3000,
+				debug: true,
+				height: 500,
+				imageCrop: true,
+				showCounter: true,
+				showInfo: true,
+				transition: 'slide',
+				transitionSpeed: 300,
+				width: '100%'
+			});
+		}
+
+		// Theme selector functionality
+		document.getElementById('themeSelect').addEventListener('change', function (e) {
+			const selectedTheme = e.target.value;
+
+			// Destroy existing gallery
+			if (Galleria.get(0)) {
+				Galleria.get(0).destroy();
+				// Clear the container
+				$('.galleria').empty();
+				// Re-add images
+				$('.galleria').html(`
+		            <img src="https://picsum.photos/800/600?random=1" alt="Demo Image 1" data-title="Beautiful Landscape" data-description="A stunning view of nature">
+                    <img src="https://picsum.photos/800/600?random=2" alt="Demo Image 2" data-title="City Skyline" data-description="Modern architecture at sunset">
+                    <img src="https://picsum.photos/800/600?random=3" alt="Demo Image 3" data-title="Ocean Waves" data-description="Peaceful waves on a sandy beach">
+                    <img src="https://picsum.photos/800/600?random=4" alt="Demo Image 4" data-title="Mountain Peak" data-description="Snow-capped mountain against blue sky">
+                    <img src="https://picsum.photos/800/600?random=5" alt="Demo Image 5" data-title="Forest Path" data-description="Winding trail through autumn trees">
+                    <img src="https://picsum.photos/800/600?random=6" alt="Demo Image 6" data-title="Desert Sunset" data-description="Golden hour in the desert landscape">
+                `);
+			}
+
+			// Small delay to ensure cleanup is complete
+			setTimeout(() => {
+				initGalleria(selectedTheme);
+			}, 100);
+		});
+
+		// Initialize with default theme when page loads
+		$(document).ready(function () {
+			initGalleria('classic');
+		});
+	</script>
+</body>
+
+</html>

@@ -45,6 +45,7 @@
   "scripts": {
     "build": "grunt",
     "build:watch": "grunt watch",
+    "dev": "live-server --port=8080 --open=/demo.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -54,6 +55,7 @@
     "grunt-contrib-cssmin": "^1.0.2",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-replace": "^1.0.1",
+    "live-server": "^1.2.2",
     "postcss-assets": "^5.0.0"
   }
 }
