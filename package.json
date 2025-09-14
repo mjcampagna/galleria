@@ -43,6 +43,8 @@
     "url": "https://github.com/worseisbetter/galleria/issues"
   },
   "scripts": {
+    "build": "grunt",
+    "build:watch": "grunt watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
